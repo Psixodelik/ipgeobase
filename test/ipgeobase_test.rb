@@ -6,8 +6,8 @@ require 'net/http'
 
 class IpgeobaseTest < Minitest::Test
   def before_setup
-    WebMock.stub_request(:get, 'http://ip-api.com/xml/8.8.8.8').
-      to_return(body: File.open("#{File.dirname(__FILE__)}/fixture/api.xml"), status: 200)
+    WebMock.stub_request(:get, 'http://ip-api.com/xml/8.8.8.8')
+           .to_return(body: File.open("#{File.dirname(__FILE__)}/fixture/api.xml"), status: 200)
   end
 
   def test_exist_api_methods
@@ -23,22 +23,21 @@ class IpgeobaseTest < Minitest::Test
     ip = Ipgeobase.lookup('8.8.8.8')
 
     assert_equal ip.city.class, String
-    assert_equal ip.city, "Montreal"
+    assert_equal ip.city, 'Montreal'
   end
-
 
   def test_country_method
     ip = Ipgeobase.lookup('8.8.8.8')
 
     assert_equal ip.country.class, String
-    assert_equal ip.country, "Canada"
+    assert_equal ip.country, 'Canada'
   end
 
-  def test_countryCode_method
+  def test_countrycode_method
     ip = Ipgeobase.lookup('8.8.8.8')
 
     assert_equal ip.countryCode.class, String
-    assert_equal ip.countryCode, "CA"
+    assert_equal ip.countryCode, 'CA'
   end
 
   def test_lat_method
